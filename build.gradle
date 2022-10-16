@@ -1,0 +1,38 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation ('org.springframework.boot:spring-boot-starter-webflux') {
+		exclude group: "org.springframework", module: "spring-webflux"
+	}
+	implementation ('org.springframework:spring-webflux:5.0.0.RELEASE') {
+		exclude group: 'io.projectreactor', module: "reator-core"
+	}
+	implementation 'io.projectreactor:reactor-core:3.3.1.RELEASE'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
